@@ -19,10 +19,10 @@ RUN npm config rm https-proxy
 ENV http_proxy ""
 ENV https_proxy ""
 
-EXPOSE 8000
+EXPOSE 7000
 CMD ["node","./bin/www"]
 # FROM  nexuscoe.rjil.ril.com:5115/jioent/health/jio-node-base:10.20.1-jessie as builder
- 
+
 # WORKDIR /usr/src/app
 
 # ARG PROXY_HTTP
