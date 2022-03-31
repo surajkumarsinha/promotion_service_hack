@@ -1,0 +1,9 @@
+const path = require('path');
+
+module.exports = {
+  env: 'local',
+  config: path.resolve('./db/pg/config.js'),
+  'models-path': path.resolve('./server/models/pg'),
+  'seeders-path': path.resolve('./server/seeders'),
+  'migrations-path': path.resolve('./db/pg/migrations')
+};
