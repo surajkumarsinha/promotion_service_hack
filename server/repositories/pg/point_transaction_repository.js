@@ -7,9 +7,10 @@ const { log_level } = require('../../../utils/enums/generic');
 
 const pointTransactionRepository = {
 
-  async create_transaction(user_instance, point_value, transaction_type) {
+  async create_transaction(user_instance, point_value, title, transaction_type) {
     try {
       const transaction_ref = await PointTransaction.create({
+        transaction_title: title,
         transaction_type,
         point_value,
       });

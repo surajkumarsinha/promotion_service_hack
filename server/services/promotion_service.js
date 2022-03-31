@@ -66,7 +66,8 @@ const complete_promotion = async (reward) => {
     await repository.create_transaction(
       user_ref,
       promotion_ref.point_value,
-      app_constant.transaction_type.REWARD
+      promotion_ref.title,
+      app_constant.transaction_type.REWARD,
     );
 
     return {
@@ -119,19 +120,23 @@ const get_user_reward = async (user_id, size = app_constant.REWARD_SIZE) => {
   }
 };
 
-const redeem_points = async (user_id, point_value) => {
+const redeem_points = async (user_id, point_value, title) => {
   try {
     const user_point_ref = await repository.get_user_point(user_id);
     if (user_point_ref == null || user_point_ref.point_value < point_value)
       throw new DefaultException('Insufficient Funds with user');
 
-    const points = await repository.update_user_point(user_point_ref, point_value, enums.point_update_type.SUBTRACT);
+    const points = await repository.update_user_point(
+      user_point_ref, point_value,
+      enums.point_update_type.SUBTRACT,
+    );
 
     const user_ref = await user_point_ref.getUser();
 
     await repository.create_transaction(
       user_ref,
       point_value,
+      title,
       app_constant.transaction_type.REDEEM
     );
 

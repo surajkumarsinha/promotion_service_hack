@@ -78,13 +78,15 @@ const getReward = async (req, res) => {
 
 const redeemPoints = async (req, res) => {
   try {
-    const { user_id, point_value } = req.body;
+    const { user_id, point_value, title } = req.body;
     if (user_id == null || point_value == null) {
       return res.status(423).json({
-        error: 'user_id and point_value are required'
+        error: 'user_id and point_value and title are required'
       });
     } else {
-      const points = await promotionService.redeem_points(user_id, point_value);
+      const points = await promotionService
+        .redeem_points(user_id, point_value, title);
+
       return res.status(200).json({ points })
     }
   } catch (error) {

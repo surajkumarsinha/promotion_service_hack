@@ -25,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
 
+    transaction_title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
     point_value: {
       type: DataTypes.INTEGER,
       allowNull: false,
