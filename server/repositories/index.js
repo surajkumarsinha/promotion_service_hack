@@ -31,6 +31,7 @@ const repositoryInterface = {
   create_category: category_repository.create_category,
   update_category: category_repository.update_category,
   delete_category: category_repository.delete_category,
+  get_category: category_repository.get_category,
 
   // Promotion Repo
   create_promotion: promotion_repository.create_promotion,

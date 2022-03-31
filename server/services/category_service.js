@@ -25,12 +25,22 @@ const delete_category = async (category_id) => {
   } catch (error) {
     throw error;
   }
-}
+};
+
+const get_category = async (category_id) => {
+  try {
+    const category_list = await repository.get_category();
+    return category_list;
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 
 module.exports = {
   create_category,
   update_category,
-  delete_category
+  delete_category,
+  get_category,
 };

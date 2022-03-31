@@ -4,11 +4,33 @@ const { logger } = require('../../../utils/logger');
 const { log_level } = require('../../../utils/enums/generic');
 
 const categoryRepository = {
+
+  async get_category() {
+    try {
+      const category_list = await Category.findAll();
+      return category_list;
+    } catch (error) {
+      logger(
+        error.message,
+        'get_category',
+        'categoryRepository',
+        log_level.ERR
+      );
+      throw new exception.DbPersistenceException('categories', error.message);
+    }
+  },
+
   async create_category(category) {
     try {
       const category_ref = await Category.create(category);
       return category_ref;
     } catch (error) {
+      logger(
+        error.message,
+        'create_category',
+        'categoryRepository',
+        log_level.ERR
+      );
       throw new exception.DbPersistenceException('categories', error.message);
     }
   },
@@ -22,6 +44,12 @@ const categoryRepository = {
       });
       return category_ref;
     } catch (error) {
+      logger(
+        error.message,
+        'update_category',
+        'categoryRepository',
+        log_level.ERR
+      );
       throw new exception.DbPersistenceException('categories', error.message);
     }
   },
@@ -32,6 +60,12 @@ const categoryRepository = {
       await category_ref.destroy();
       return;
     } catch (error) {
+      logger(
+        error.message,
+        'delete_category',
+        'categoryRepository',
+        log_level.ERR
+      );
       throw new exception.DbPersistenceException('categories', error.message);
     }
   },

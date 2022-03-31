@@ -10,5 +10,6 @@ const router = express.Router();
 router.post('/', validateCategoryCreation, categoryController.createCategory);
 router.post('/update', validateCategoryUpdation, categoryController.updateCategory);
 router.delete('/', categoryController.deleteCategory);
+router.get('/', categoryController.getCategory);
 
 module.exports = router;
