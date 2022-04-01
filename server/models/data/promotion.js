@@ -8,7 +8,8 @@ class Promotion {
     description,
     start_date,
     expiry_date,
-    promotion_limit = 1
+    promotion_limit = 1,
+    cta_text,
   ) {
     this.category_id = category_id;
     this.title = title;
@@ -19,6 +20,7 @@ class Promotion {
     this.start_date = start_date;
     this.expiry_date = expiry_date;
     this.promotion_limit = promotion_limit;
+    this.cta_text = cta_text;
   }
 };
 

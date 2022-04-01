@@ -67,6 +67,12 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 1
     },
 
+    cta_text: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: 'add event'
+    },
+
   },
 
     {

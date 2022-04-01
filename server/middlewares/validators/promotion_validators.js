@@ -60,6 +60,14 @@ exports.validatePromotionCreation = [
     .withMessage('Expiry date cannot be empty')
     .bail(),
 
+  check('cta_text')
+    .not()
+    .isEmpty()
+    .withMessage('cta_text is required')
+    .bail()
+    .isString()
+    .withMessage('point_accumulated has to be a string')
+    .bail(),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -75,6 +83,7 @@ exports.validatePromotionCreation = [
       start_date,
       expiry_date,
       promotion_limit,
+      cta_text
     } = req.body;
     res.locals.promotion = new Promotion(
       category_id,
@@ -85,7 +94,8 @@ exports.validatePromotionCreation = [
       description,
       start_date,
       expiry_date,
-      promotion_limit
+      promotion_limit,
+      cta_text
     );
     next();
   },
