@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 const repository = require('../repositories/index');
 const enums = require('../../utils/enums/generic');
 const app_constant = require('../../config/app_constant');
@@ -33,8 +34,7 @@ const complete_promotion = async (reward) => {
       reward.user_id
     );
 
-    if (reward_ref &&
-      reward_ref.reward_count >= reward_ref.reward_limit) {
+    if (reward_ref && reward_ref.reward_count >= reward_ref.reward_limit) {
       return null;
     } else if (reward_ref) {
       reward_ref = await repository.update_user_reward_count(reward_ref, 1);
@@ -58,7 +58,7 @@ const complete_promotion = async (reward) => {
       updated_user_points = await repository.create_user_point(
         reward.user_id,
         promotion_ref.point_type,
-        promotion_ref.point_value,
+        promotion_ref.point_value
       );
     }
 
@@ -67,12 +67,12 @@ const complete_promotion = async (reward) => {
       user_ref,
       promotion_ref.point_value,
       promotion_ref.title,
-      app_constant.transaction_type.REWARD,
+      app_constant.transaction_type.REWARD
     );
 
     return {
       reward_ref,
-      updated_user_points
+      updated_user_points,
     };
   } catch (error) {
     logger(
@@ -89,11 +89,11 @@ const get_promotion = async (user_id = null) => {
   try {
     let claimed_promotion_list = [];
     if (user_id) {
-      claimed_promotion_list = await repository
-        .get_promotion_id_from_user_reward(user_id);
+      claimed_promotion_list =
+        await repository.get_promotion_id_from_user_reward(user_id);
     }
 
-    let claimed_list = claimed_promotion_list.map(obj => obj.PromotionId);
+    const claimed_list = claimed_promotion_list.map((obj) => obj.PromotionId);
 
     const promotion_list = await repository.get_promotion(
       user_id,
@@ -101,12 +101,7 @@ const get_promotion = async (user_id = null) => {
     );
     return promotion_list;
   } catch (error) {
-    logger(
-      error.message,
-      'get_promotion',
-      'promotion_service',
-      log_level.ERR
-    );
+    logger(error.message, 'get_promotion', 'promotion_service', log_level.ERR);
     throw error;
   }
 };
@@ -116,6 +111,7 @@ const get_user_reward = async (user_id, size = app_constant.REWARD_SIZE) => {
     const user_reward_list = await repository.get_user_reward(user_id, size);
     return user_reward_list;
   } catch (error) {
+    console.log(error.message);
     throw error;
   }
 };
@@ -127,8 +123,9 @@ const redeem_points = async (user_id, point_value, title) => {
       throw new DefaultException('Insufficient Funds with user');
 
     const points = await repository.update_user_point(
-      user_point_ref, point_value,
-      enums.point_update_type.SUBTRACT,
+      user_point_ref,
+      point_value,
+      enums.point_update_type.SUBTRACT
     );
 
     const user_ref = await user_point_ref.getUser();
@@ -142,9 +139,10 @@ const redeem_points = async (user_id, point_value, title) => {
 
     return points;
   } catch (error) {
+    console.log(error.message);
     throw error;
   }
-}
+};
 
 const get_transaction_list = async (user_id) => {
   try {
@@ -159,18 +157,17 @@ const get_transaction_list = async (user_id) => {
     );
     throw error;
   }
-}
-
+};
 
 const get_promotion_v2 = async (user_id = null) => {
   try {
     let claimed_promotion_list = [];
     if (user_id) {
-      claimed_promotion_list = await repository
-        .get_promotion_id_from_user_reward(user_id);
+      claimed_promotion_list =
+        await repository.get_promotion_id_from_user_reward(user_id);
     }
 
-    let claimed_list = claimed_promotion_list.map(obj => obj.PromotionId);
+    const claimed_list = claimed_promotion_list.map((obj) => obj.PromotionId);
 
     const promotion_list = await repository.get_promotion(
       user_id,
@@ -178,12 +175,7 @@ const get_promotion_v2 = async (user_id = null) => {
     );
     return promotion_list;
   } catch (error) {
-    logger(
-      error.message,
-      'get_promotion',
-      'promotion_service',
-      log_level.ERR
-    );
+    logger(error.message, 'get_promotion', 'promotion_service', log_level.ERR);
     throw error;
   }
 };
@@ -193,9 +185,10 @@ const get_all_promotion = async () => {
     const promotion_list = await repository.get_all_promotion();
     return promotion_list;
   } catch (error) {
+    console.log(error.message);
     throw error;
   }
-}
+};
 
 module.exports = {
   create_promotion,
@@ -204,5 +197,6 @@ module.exports = {
   get_user_reward,
   redeem_points,
   get_transaction_list,
-  get_all_promotion
+  get_all_promotion,
+  get_promotion_v2,
 };

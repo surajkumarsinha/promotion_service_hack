@@ -1,13 +1,16 @@
-const Sequelize = require('sequelize');
-const User = require('../../models/pg/index').User;
-const PointTransaction = require('../../models/pg/index').PointTransaction;
+const { User } = require('../../models/pg/index');
+const { PointTransaction } = require('../../models/pg/index');
 const exception = require('../../../exceptions/exception');
 const { logger } = require('../../../utils/logger');
 const { log_level } = require('../../../utils/enums/generic');
 
 const pointTransactionRepository = {
-
-  async create_transaction(user_instance, point_value, title, transaction_type) {
+  async create_transaction(
+    user_instance,
+    point_value,
+    title,
+    transaction_type
+  ) {
     try {
       const transaction_ref = await PointTransaction.create({
         transaction_title: title,
@@ -24,7 +27,10 @@ const pointTransactionRepository = {
         'pointTransactionRepository',
         log_level.ERR
       );
-      throw new exception.DbPersistenceException('PointTransactions', error.message);
+      throw new exception.DbPersistenceException(
+        'PointTransactions',
+        error.message
+      );
     }
   },
 
@@ -32,18 +38,16 @@ const pointTransactionRepository = {
     try {
       const transaction_list = await PointTransaction.findAll({
         where: {
-          UserId: user_id
+          UserId: user_id,
         },
         limit: size,
-        offset: offset,
+        offset,
         include: [
           {
-            model: User
+            model: User,
           },
         ],
-        order: [
-          ['createdAt', 'DESC']
-        ]
+        order: [['createdAt', 'DESC']],
       });
       return transaction_list;
     } catch (error) {
@@ -55,8 +59,7 @@ const pointTransactionRepository = {
       );
       throw new exception.DbFetchException('PointTransactions', error.message);
     }
-  }
-
+  },
 };
 
 module.exports = pointTransactionRepository;

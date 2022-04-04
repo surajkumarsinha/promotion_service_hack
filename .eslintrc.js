@@ -26,6 +26,6 @@ module.exports = {
     'func-name': ['off'],
     'no-use-before-define': ['off'],
     'consistent-return': ['off'],
-    'node/no-unpublished-require': ['error', { devDependencies: true }],
+    // 'node/no-unpublished-require': ['error', { devDependencies: true }],
   },
 };

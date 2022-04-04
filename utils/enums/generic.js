@@ -11,26 +11,20 @@ const promotion_type = {
 const point_type = {
   1: {
     currency: 'INR',
-    point_value: 1
-  }
+    point_value: 1,
+  },
 };
 
 const point_update_type = {
   ADD: 0,
-  SUBTRACT: 1
+  SUBTRACT: 1,
 };
 
-Object.freeze([
-  log_level,
-  promotion_type,
-  point_type,
-  point_update_type
-]);
+Object.freeze([log_level, promotion_type, point_type, point_update_type]);
 
 module.exports = {
   log_level,
   promotion_type,
   point_type,
-  point_update_type
+  point_update_type,
 };
-

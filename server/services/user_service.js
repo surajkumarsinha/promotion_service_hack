@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 const repository = require('../repositories/index');
 
 const create_user = async (user) => {
@@ -5,6 +6,7 @@ const create_user = async (user) => {
     const user_ref = await repository.create_user(user);
     return user_ref;
   } catch (error) {
+    console.log(error.message);
     throw error;
   }
 };
@@ -19,11 +21,12 @@ const get_user_points = async (user_id) => {
       return null;
     }
   } catch (error) {
+    console.log(error.message);
     throw error;
   }
 };
 
 module.exports = {
   create_user,
-  get_user_points
-}
+  get_user_points,
+};

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 let user_repository,
   category_repository,
   promotion_repository,
@@ -5,7 +6,7 @@ let user_repository,
   point_repository,
   point_transaction_repository;
 
-if (process.env.DB_TYPE == 'pg') {
+if (process.env.DB_TYPE === 'pg') {
   user_repository = require('./pg/user_repository');
   category_repository = require('./pg/category_repository');
   promotion_repository = require('./pg/promotion_repository');
@@ -20,7 +21,6 @@ if (process.env.DB_TYPE == 'pg') {
   point_repository = require('./pg/point_repository');
   point_transaction_repository = require('./pg/point_transaction_repository');
 }
-
 
 const repositoryInterface = {
   // User Repo
@@ -41,8 +41,10 @@ const repositoryInterface = {
   // UserReward Repo
   create_user_reward: user_reward_repository.create_user_reward,
   get_user_reward: user_reward_repository.get_user_reward,
-  get_user_reward_with_promotion_id: user_reward_repository.get_user_reward_with_promotion_id,
-  get_promotion_id_from_user_reward: user_reward_repository.get_promotion_id_from_user_reward,
+  get_user_reward_with_promotion_id:
+    user_reward_repository.get_user_reward_with_promotion_id,
+  get_promotion_id_from_user_reward:
+    user_reward_repository.get_promotion_id_from_user_reward,
   update_user_reward_count: user_reward_repository.update_user_reward_count,
 
   // UserPoint Repo
@@ -53,6 +55,6 @@ const repositoryInterface = {
   // PointTransaction Repo
   create_transaction: point_transaction_repository.create_transaction,
   fetch_all_transaction: point_transaction_repository.fetch_all_transaction,
-}
+};
 
 module.exports = repositoryInterface;

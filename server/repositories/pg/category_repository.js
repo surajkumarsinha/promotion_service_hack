@@ -1,10 +1,9 @@
-const Category = require('../../models/pg/index').Category;
+const { Category } = require('../../models/pg/index');
 const exception = require('../../../exceptions/exception');
 const { logger } = require('../../../utils/logger');
 const { log_level } = require('../../../utils/enums/generic');
 
 const categoryRepository = {
-
   async get_category() {
     try {
       const category_list = await Category.findAll();
@@ -37,10 +36,12 @@ const categoryRepository = {
 
   async update_category(updated_category) {
     try {
-      const category_ref = await Category.findByPk(updated_category.category_id);
+      const category_ref = await Category.findByPk(
+        updated_category.category_id
+      );
       await category_ref.update({
         action_url: updated_category.action_url,
-        category_name: updated_category.category_name
+        category_name: updated_category.category_name,
       });
       return category_ref;
     } catch (error) {

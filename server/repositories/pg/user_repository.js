@@ -1,4 +1,4 @@
-const User = require('../../models/pg/index').User;
+const { User } = require('../../models/pg/index');
 const exception = require('../../../exceptions/exception');
 
 const userRepository = {
@@ -18,7 +18,7 @@ const userRepository = {
     } catch (error) {
       throw new exception.DbPersistenceException('users', error.message);
     }
-  }
+  },
 };
 
 module.exports = userRepository;
