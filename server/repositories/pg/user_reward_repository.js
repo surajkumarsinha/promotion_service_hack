@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const { Promotion } = require('../../models/pg/index');
-const { Category } = require('../../models/pg/index');
 const { UserReward } = require('../../models/pg/index');
 const { User } = require('../../models/pg/index');
 const exception = require('../../../exceptions/exception');

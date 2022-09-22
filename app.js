@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const routes = require('./routes/index');
 
-app.use('/api', routes);
+app.use('/promotion-service/api', routes);
 
 app.get('/', (req, res) => {
   res.send('hi');
